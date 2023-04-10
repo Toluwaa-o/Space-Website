@@ -14,11 +14,11 @@ function TechDetails() {
   let y = tech.width ? 'portrait' : 'landscape';
 
   useEffect(() => {
-    fetch('http://localhost:3005/technology')
+    fetch('./data.json')
     .then(rus => rus.json())
     .then(res => {
       setTech(prevState => ({
-        ...prevState, techData: res, a: document.querySelector('.techSlide').scrollLeft,
+        ...prevState, techData: res.technology, a: document.querySelector('.techSlide').scrollLeft,
         b: document.querySelector('.techSlide').scrollWidth - document.querySelector('.techSlide').clientWidth
       }))
     })
@@ -30,7 +30,6 @@ function TechDetails() {
       ...prev, a: document.querySelector('.techSlide').scrollLeft
     }))
   })
-  console.log(tech.a/tech.b)
 }
 
   return (

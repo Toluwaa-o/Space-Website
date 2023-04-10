@@ -1,48 +1,39 @@
-import { useLoaderData, useParams } from 'react-router-dom'
-import { memo } from 'react'
+import { memo, useState, useEffect } from 'react'
 
-function DestinationDetails() {
-  // const { name } = useParams()
-  let data = useLoaderData()
+function DestinationDetails({data, destination}) {
+  const [desData, setDesData] = useState(null)
+
+  useEffect(() => {
+    const newData = data.filter(des => des.name.toLowerCase() === destination)
+    setDesData(newData)
+  }, [destination])
 
   return (
     <>
-      <img src={data.images.png.slice(1)} alt={data.name + " image"} />
+    {desData && <>
+      <img src={desData[0].images.png} alt={desData[0].name + " image"} />
 
      <div className='DestTotal'>
         <div className='destDetails'>
-          <h3>{data.name}</h3>
-          <p>{data.description}</p>
+          <h3>{desData[0].name}</h3>
+          <p>{desData[0].description}</p>
         </div>
 
         <div className='destBottom'>
           <div>
             <h5>Avg. distance</h5>
-            <p>{data.distance}</p>
+            <p>{desData[0].distance}</p>
           </div>
 
           <div>
             <h5>Est. travel time</h5>
-            <p>{data.travel}</p>
+            <p>{desData[0].travel}</p>
           </div>
         </div>
      </div>
+    </>}
     </>
-  )
+ )
 }
 
 export default memo(DestinationDetails)
-
-export const DestinationDetailsLoader = async ({params}) => {
-  const { name } = params
-  console.log(params)
-
-
-  const res = await fetch('http://localhost:3005/destinations/' + name)
-
-  if(!res.ok){
-    throw Error('Could not load destinations')
-  }
-
-  return res.json()
-}

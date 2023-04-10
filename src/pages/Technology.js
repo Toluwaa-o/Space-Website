@@ -1,4 +1,3 @@
-import { Outlet, useLoaderData } from 'react-router-dom'
 import TechDetails from './LoaderPages/TechDetails';
 
 export default function Technology() {
@@ -10,14 +9,4 @@ export default function Technology() {
       <TechDetails />
     </div>
   )
-}
-
-export const TechData = async () => {
-  const res = await fetch('http://localhost:3005/technology')
-
-  if(!res.ok){
-    throw Error('Cannot load technology!')
-  }
-
-  return res.json()
 }

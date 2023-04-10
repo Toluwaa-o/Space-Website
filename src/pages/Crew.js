@@ -12,15 +12,4 @@ function Crew() {
   )
 }
 
-
-export const CrewLoader = async () => {
-  const res = await fetch('http://localhost:3005/crew')
-
-  if(!res.ok){
-    throw Error('Could not load Crew Members!')
-  }
-
-  return res.json()
-}
-
 export default memo(Crew)

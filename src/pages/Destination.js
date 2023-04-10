@@ -1,39 +1,44 @@
-import { useLoaderData, Outlet, NavLink, Navigate } from 'react-router-dom'
-import { useEffect, memo } from 'react'
+
+import { useEffect, memo, useState } from 'react'
+import DestDetails from './LoaderPages/DestinationDetails'
 
 
 function Destination() {
-  const links = useLoaderData()
+
+  const [link, setLink] = useState({
+    destination: 'moon',
+    desData: []
+  })
 
   useEffect(() => {
-    <Navigate to='/1' replace={true} />
-  }, [])
+    fetch('./data.json')
+    .then(res => res.json())
+    .then(res => {
+      setLink(prev => ({...prev, desData: res.destinations}))
+    })
+    }, [])
+
+    const changeDestination = (name) => {
+      setLink(prev => ({...prev, destination: name.toLowerCase()}))
+    }
 
   return (
-    <div className='destination'>
+    <>
+    {link.desData.length !== 0 && <div className='destination'>
       <h2><span>01</span> Pick your destination</h2>
 
       <nav className='destNav'>
         <ul>
-          {links.map(link => {
-            return <li key={link.id}><NavLink to={link.id.toString()}>{link.name}</NavLink></li>
+          {link.desData.map(lin => {
+            return <li onClick={() => changeDestination(lin.name)} className={link.destination === lin.name.toLowerCase() ? 'active' : ''} key={lin.id}>{lin.name}</li>
           })}
         </ul>
       </nav>
         
-      <Outlet />
-    </div>
+      <DestDetails data={link.desData} destination={link.destination} />
+    </div>}
+    </>
   )
 }
 
 export default memo(Destination)
-
-export const DesLink = async () => {
-  const res = await fetch('http://localhost:3005/destinations')
-
-  if(!res.ok){
-    throw Error('Could not fetch the destinations')
-}
-
-  return res.json()
-}

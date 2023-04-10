@@ -76,6 +76,25 @@ body {
   background-size: cover;
 }
 
+.errorPage {
+  background: transparent;
+  display: grid;
+  place-content: center;
+  padding-top: 30vh;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  text-align: center;
+  color: var(--white);
+}
+
+.errorPage > p {
+  font-size: 1.3em;
+}
+
+.errorPage a {
+  text-decoration: none;
+  color: var(--lblue);
+}
+
 .explore {
   display: flex;
   justify-content: center;
@@ -299,14 +318,14 @@ body h2 span {
   z-index: 5;
 }
 
-.destNav a {
+.destNav li {
   color: rgba(255, 255, 255, 0.685);
   text-decoration: none;
   padding-bottom: .5em;
   cursor: pointer;
 }
 
-.destNav a:hover {
+.destNav li:hover {
   border-bottom: 4px solid var(--lblue);
 }
 
@@ -964,7 +983,7 @@ body h2 span {
   }
 
   .destDetails h3 {
-    font-size: 5.3em;
+    font-size: 3.5em;
   }
 
   .destDetails p {

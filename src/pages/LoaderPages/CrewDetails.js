@@ -9,11 +9,11 @@ function CrewDetails() {
   })
 
   useEffect(() => {
-    fetch('http://localhost:3005/crew')
+    fetch('./data.json')
     .then(rus => rus.json())
     .then(res => {
       setCrew({
-        cData: res,
+        cData: res.crew,
         a: document.querySelector('.crewSlide').scrollLeft,
         b: document.querySelector('.crewSlide').scrollWidth - document.querySelector('.crewSlide').clientWidth
       })
@@ -26,7 +26,6 @@ function CrewDetails() {
       ...prev, a: document.querySelector('.crewSlide').scrollLeft
     }))
   })
-  console.log(crew.a/crew.b)
 }
 
   return (

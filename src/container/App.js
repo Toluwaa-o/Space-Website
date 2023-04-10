@@ -1,33 +1,26 @@
 import { Route,
-         Outlet, createRoutesFromElements, createBrowserRouter, RouterProvider 
+         createRoutesFromElements, createBrowserRouter, RouterProvider 
         } from "react-router-dom";
 
 import Page from './Page'
-import Destination, { DesLink } from '../pages/Destination'
+import Destination from '../pages/Destination'
 import Home from '../pages/Home'
-import Crew, { CrewLoader } from '../pages/Crew'
-import Technology, { TechData } from '../pages/Technology'
-import DestinationDetails, { DestinationDetailsLoader } from '../pages/LoaderPages/DestinationDetails'
-import CrewDetails, { CrewDetailsLoader } from '../pages/LoaderPages/CrewDetails'
-import TechDetails, { TechDetailsLoader } from '../pages/LoaderPages/TechDetails'
+import Crew from '../pages/Crew'
+import Technology from '../pages/Technology'
+import DestinationDetails from '../pages/LoaderPages/DestinationDetails'
+import ErrorPage from "../pages/errorPage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path='/react_project' element={<Page />}>
+        <Route path='/react_project' element={<Page />} errorElement={<ErrorPage />}>
             <Route index element={<Home />} />
 
-            <Route path='/destination' element={<Destination />} loader={DesLink} >
-            {/* <Route index
-                        element={<DestinationDetails />}
-                        loader={DestinationDetailsLoader} /> */}
-                <Route path="/:name"
-                        element={<DestinationDetails />}
-                        loader={DestinationDetailsLoader} />
-            </Route>
+            <Route path='destination' element={<Destination />} />
 
-            <Route path='/crew' element={<Crew />} loader={CrewLoader} />
+            <Route path='crew' element={<Crew />} />
 
-            <Route path='/technology' element={<Technology />} loader={TechData} />
+            <Route path='technology' element={<Technology />} />
+            <Route path='*' element={<ErrorPage />} />
         </Route>
     )
 )
